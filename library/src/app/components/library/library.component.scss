@@ -1,0 +1,24 @@
+.library {
+  width: 100%;
+  margin-top: 50px;
+
+  &__table {
+    width: 100%;
+  }
+  &__btn-add {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 769px) {
+  .library {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    &__table {
+      height: calc(100vh - 85px);
+    }
+  }
+}
