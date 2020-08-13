@@ -13,12 +13,4 @@
 }
 
 @media (max-width: 769px) {
-  .library {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    &__table {
-      height: calc(100vh - 85px);
-    }
-  }
 }
