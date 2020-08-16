@@ -12,7 +12,7 @@ export class LibraryComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'genre', 'author'];
 
   ngOnInit(): void {
-    this.data.getBooks().subscribe((data) => (this.books = data));
+    this.data.getBooks().subscribe((data) => console.log(data));
   }
   public addBook() {
     const newBook = { name: 'title', genre: 'sdasd', author_books: null };

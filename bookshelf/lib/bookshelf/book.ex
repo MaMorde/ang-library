@@ -1,21 +1,22 @@
 defmodule Bookshelf.Book do
+  import Ecto.Query, warn: false
   use Ecto.Schema
   import Ecto.Changeset
-  alias Bookshelf.{AuthorBook, Repo}
+  alias Bookshelf.{Author, Repo}
 
-  @preload_list [author_books: [:author, :book]]
+  @preload_list [:authors]
 
   schema "books" do
-    field :name, :string
-    field :genre, :string
-    has_many :author_books, AuthorBook, on_replace: :delete, on_delete: :delete_all
+    field(:name, :string)
+    field(:genre, :string)
+    many_to_many(:authors, Author, join_through: "author_books", on_replace: :delete)
   end
 
   def changeset(book, attrs) do
     book
     |> cast(attrs, [:name, :genre])
     |> validate_required([:name, :genre])
-    |> cast_assoc(:author_books)
+    |> put_assoc_custom(attrs, :authors, Author)
   end
 
   def list_books do
@@ -45,5 +46,46 @@ defmodule Bookshelf.Book do
 
   def delete_book(book) do
     Repo.delete(book)
+  end
+
+  def preload_list, do: @preload_list
+
+  defp put_assoc_custom(changeset, attrs, assoc_atom, assoc_module) do
+    attrs_assoc = attrs[to_string(assoc_atom)] || attrs[assoc_atom]
+    put_assoc_by_attrs(changeset, attrs_assoc, assoc_atom, assoc_module)
+  end
+
+  defp put_assoc_by_attrs(changeset, [], assoc_atom, _), do: put_assoc(changeset, assoc_atom, [])
+  defp put_assoc_by_attrs(changeset, nil, _, _), do: changeset
+
+  defp put_assoc_by_attrs(changeset, attrs_assoc, assoc_atom, assoc_module) do
+    all_assoc = attrs_assoc
+
+    {with_ids, without_ids} =
+      Enum.split_with(all_assoc, fn assoc ->
+        Map.has_key?(assoc, :id) or Map.has_key?(assoc, "id")
+      end)
+
+    existed_ids = Enum.map(with_ids, &(Map.get(&1, :id) || Map.get(&1, "id")))
+    existed_assoc_query = from(c in assoc_module, where: c.id in ^existed_ids)
+
+    existed_assoc = existed_assoc_query |> Repo.all() |> Repo.preload(assoc_module.preload_list())
+
+    existed_assoc_changesets =
+      Enum.map(existed_assoc, fn assoc ->
+        assoc_attrs =
+          Enum.find(
+            with_ids,
+            &(Map.get(&1, :id) == assoc.id or Map.get(&1, "id") == assoc.id)
+          )
+
+        assoc_module.changeset(assoc, assoc_attrs)
+      end)
+
+    without_ids = Enum.map(without_ids, &assoc_module.changeset(assoc_module.__struct__, &1))
+
+    all_assoc = Enum.concat(existed_assoc_changesets, without_ids)
+
+    put_assoc(changeset, assoc_atom, all_assoc)
   end
 end

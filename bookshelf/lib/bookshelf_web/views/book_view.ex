@@ -16,11 +16,11 @@ defmodule BookshelfWeb.BookView do
       id: book.id,
       name: book.name,
       genre: book.genre,
-      author_books: render_many(book.author_books, AuthorBookView, "show.json")
+      authos: render_many(book.authos, AuthorView, "book_author.json")
     }
   end
 
-  def render("author_book_book.json", %{book: book}) do
+  def render("author_book.json", %{book: book}) do
     %{
       id: book.id,
       name: book.name,
