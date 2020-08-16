@@ -1,5 +1,5 @@
 defmodule BookshelfWeb.BookView do
-  alias BookshelfWeb.AuthorBookView
+  alias BookshelfWeb.AuthorView
   alias BookshelfWeb.BookView
   use BookshelfWeb, :view
 
@@ -16,7 +16,7 @@ defmodule BookshelfWeb.BookView do
       id: book.id,
       name: book.name,
       genre: book.genre,
-      authos: render_many(book.authos, AuthorView, "book_author.json")
+      authors: render_many(book.authors, AuthorView, "book_author.json")
     }
   end
 
