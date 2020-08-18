@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LibraryComponent } from './components/library/library.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LibraryComponent],
@@ -40,7 +41,7 @@ import { LibraryComponent } from './components/library/library.component';
     HttpClientModule,
     MatDialogModule,
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

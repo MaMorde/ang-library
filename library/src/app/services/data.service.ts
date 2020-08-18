@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { IBook } from '../interfaces/book';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  books: any;
   constructor(private http: HttpClient) {
     this.getBooks();
   }
 
   getBooks() {
-    return this.http.get('http://localhost:4000/books');
+    return this.http.get<IBook[]>('http://localhost:4000/books');
   }
   addBook(book) {
-    return this.http.post('http://localhost:4000/books', book);
+    return this.http.post<IBook[]>('http://localhost:4000/books', book);
   }
 }
