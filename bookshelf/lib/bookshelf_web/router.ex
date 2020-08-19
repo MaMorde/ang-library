@@ -5,7 +5,7 @@ defmodule BookshelfWeb.Router do
     plug(:accepts, ["html"])
     plug(:fetch_session)
     plug(:fetch_flash)
-    plug(:protect_from_forgery)
+    # plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
   end
 
@@ -18,6 +18,9 @@ defmodule BookshelfWeb.Router do
     pipe_through(:browser)
     pipe_through(:api)
     resources("/books", BookController, except: [:new, :edit])
+    options("/books", BookController, :options)
+
+    options("/books/:id", BookController, :options)
     resources("/authors", AuthorController, except: [:new, :edit])
     get("/", PageController, :index)
   end

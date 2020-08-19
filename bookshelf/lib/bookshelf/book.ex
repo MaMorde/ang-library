@@ -34,14 +34,25 @@ defmodule Bookshelf.Book do
   def update_book(book, params) do
     book = Repo.preload(book, @preload_list)
     changeset = __MODULE__.changeset(book, params)
-    Repo.update(changeset)
+    update_book = Repo.update(changeset)
+
+    case update_book do
+      {:ok, book} -> {:ok, Repo.preload(book, @preload_list)}
+      error -> error
+    end
   end
 
   def create_book(params) do
     changeset = __MODULE__.changeset(%Bookshelf.Book{}, params)
 
-    changeset
-    |> Repo.insert()
+    create_book =
+      changeset
+      |> Repo.insert()
+
+    case create_book do
+      {:ok, book} -> {:ok, Repo.preload(book, @preload_list)}
+      error -> error
+    end
   end
 
   def delete_book(book) do

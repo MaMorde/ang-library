@@ -7,8 +7,8 @@ defmodule BookshelfWeb.BookView do
     render_many(books, BookView, "book.json")
   end
 
-  def render("show.json", %{books: books}) do
-    render_one(books, BookView, "book.json")
+  def render("show.json", %{book: book}) do
+    render_one(book, BookView, "book.json")
   end
 
   def render("book.json", %{book: book}) do

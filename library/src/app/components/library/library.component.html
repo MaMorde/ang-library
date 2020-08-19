@@ -1,6 +1,6 @@
 <div class="library">
   <div class="library__btn-add">
-    <button (click)="addBook()" mat-raised-button>Add book</button>
+    <button (click)="openCreateForm()" mat-raised-button>Add book</button>
   </div>
   <table mat-table [dataSource]="books" class="mat-elevation-z8 library__table">
     <ng-container matColumnDef="id">
@@ -42,7 +42,7 @@
       <th mat-header-cell *matHeaderCellDef></th>
 
       <td class="library__btn-edit" mat-cell *matCellDef="let element">
-        <button mat-button>
+        <button (click)="delBook(element.id)" mat-button>
           <span class="material-icons">
             delete
           </span>

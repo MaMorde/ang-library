@@ -30,12 +30,28 @@ defmodule Bookshelf.Author do
   def update_author(author, params) do
     author = Repo.preload(author, @preload_list)
     changeset = __MODULE__.changeset(author, params)
-    Repo.update(changeset)
+    update_author = Repo.update(changeset)
+
+    case update_author do
+      {:ok, author} ->
+        {:ok, Repo.preload(author, @preload_list)}
+
+      error ->
+        error
+    end
   end
 
   def create_author(params) do
     changeset = __MODULE__.changeset(%Bookshelf.Author{}, params)
-    changeset |> Repo.insert()
+    create_author = changeset |> Repo.insert()
+
+    case create_author do
+      {:ok, author} ->
+        {:ok, Repo.preload(author, @preload_list)}
+
+      error ->
+        error
+    end
   end
 
   def delete_author(author) do

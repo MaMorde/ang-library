@@ -13,6 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
+
+import { MatRadioModule } from '@angular/material/radio';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,9 +25,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LibraryComponent } from './components/library/library.component';
 import { DataService } from './services/data.service';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, LibraryComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    LibraryComponent,
+    ModalComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -36,8 +45,10 @@ import { DataService } from './services/data.service';
     MatToolbarModule,
     MatFormFieldModule,
     MatIconModule,
+    MatGridListModule,
     MatSelectModule,
     MatTableModule,
+    MatRadioModule,
     HttpClientModule,
     MatDialogModule,
   ],
