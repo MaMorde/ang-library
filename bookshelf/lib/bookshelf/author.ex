@@ -1,6 +1,6 @@
 defmodule Bookshelf.Author do
   import Ecto.Query, warn: false
-  alias Bookshelf.{Book, Repo}
+  alias Bookshelf.{AuthorBook, Book, Repo}
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -55,7 +55,10 @@ defmodule Bookshelf.Author do
   end
 
   def delete_author(author) do
-    Repo.delete(author)
+    Repo.transaction(fn ->
+      Repo.delete_all(from(ab in AuthorBook, where: ab.author_id == ^author.id))
+      Repo.delete(author)
+    end)
   end
 
   defp put_assoc_custom(changeset, attrs, assoc_atom, assoc_module) do

@@ -24,8 +24,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LibraryComponent } from './components/library/library.component';
-import { DataService } from './services/data.service';
 import { ModalComponent } from './components/modal/modal.component';
+
+import { BooksService } from './services/books.service';
+import { AuthorsService } from './services/authors.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,7 @@ import { ModalComponent } from './components/modal/modal.component';
     HttpClientModule,
     MatDialogModule,
   ],
-  providers: [DataService],
+  providers: [BooksService, AuthorsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

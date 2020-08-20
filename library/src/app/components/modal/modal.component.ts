@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { IBook } from 'src/app/interfaces/book';
-import { DataService } from 'src/app/services/data.service';
+import { BooksService } from 'src/app/services/books.service';
 import { IAuthor } from 'src/app/interfaces/author';
+import { AuthorsService } from 'src/app/services/authors.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -10,31 +12,28 @@ import { IAuthor } from 'src/app/interfaces/author';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder, private data: DataService) {}
-  authors: IAuthor[];
+  constructor(
+    private formBuilder: FormBuilder,
+    private booksService: BooksService,
+    private authorsService: AuthorsService
+  ) {}
+  public authors: Observable<IAuthor[]>;
   public addBookForm: FormGroup;
   ngOnInit(): void {
-    this.data.getAuthors();
+    this.authors = this.authorsService.get();
     this.addBookForm = this.formBuilder.group({
-      title: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       genre: ['', [Validators.required]],
-      authors: ['', []],
+      author: ['', [Validators.required]],
     });
   }
 
-  addBook(book: IBook) {
-    const newBook: IBook = {
-      name: book.name,
-      genre: book.genre,
-      authors: book.authors,
-    };
-    this.data.addBook(newBook);
+  addBook() {
+    const { name, genre, author } = this.addBookForm.value;
+    const params = { name, genre, author };
+    this.booksService.create(params).subscribe((data) => console.log(data));
   }
   public onSubmit() {
-    if (this.addBookForm.invalid) {
-      return;
-    } else {
-      this.addBook(this.addBookForm.value);
-    }
+    this.addBook();
   }
 }

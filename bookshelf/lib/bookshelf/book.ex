@@ -2,7 +2,7 @@ defmodule Bookshelf.Book do
   import Ecto.Query, warn: false
   use Ecto.Schema
   import Ecto.Changeset
-  alias Bookshelf.{Author, Repo}
+  alias Bookshelf.{Author, AuthorBook, Repo}
 
   @preload_list [:authors]
 
@@ -56,7 +56,10 @@ defmodule Bookshelf.Book do
   end
 
   def delete_book(book) do
-    Repo.delete(book)
+    Repo.transaction(fn ->
+      Repo.delete_all(from(ab in AuthorBook, where: ab.book_id == ^book.id))
+      Repo.delete(book)
+    end)
   end
 
   def preload_list, do: @preload_list
