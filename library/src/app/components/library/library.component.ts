@@ -36,6 +36,6 @@ export class LibraryComponent implements OnInit {
   }
 
   public delBook(id: number) {
-    this.bookService.delete(id).subscribe((data) => console.log(data));
+    this.bookService.delete(id).subscribe();
   }
 }

@@ -31,9 +31,12 @@ export class ModalComponent implements OnInit {
   addBook() {
     const { name, genre, author } = this.addBookForm.value;
     const params = { name, genre, author };
+    console.log(params);
+    console.log(this.addBookForm.value);
     this.booksService.create(params).subscribe((data) => console.log(data));
   }
   public onSubmit() {
     this.addBook();
+    console.log(this.addBookForm.get('author').value);
   }
 }
