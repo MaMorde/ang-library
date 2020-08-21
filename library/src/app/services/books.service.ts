@@ -13,6 +13,9 @@ export class BooksService {
   get(): Observable<IBook[]> {
     return this.http.get<IBook[]>(`${this.link}/books`);
   }
+  getconsole(id: number): Observable<IBook[]> {
+    return this.http.get<IBook[]>(`${this.link}/books/${id}`);
+  }
   create(book): Observable<IBook[]> {
     return this.http.post<IBook[]>(`${this.link}/books`, book);
   }

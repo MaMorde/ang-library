@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class LibraryComponent implements OnInit {
   constructor(
-    private bookService: BooksService,
+    private booksService: BooksService,
     private authorsService: AuthorsService,
     public dialog: MatDialog
   ) {}
@@ -29,13 +29,16 @@ export class LibraryComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.books = this.bookService.get();
+    this.books = this.booksService.get();
   }
   openCreateForm() {
     this.dialog.open(ModalComponent);
   }
 
   public delBook(id: number) {
-    this.bookService.delete(id).subscribe();
+    this.booksService.delete(id).subscribe();
+  }
+  console(id: number) {
+    this.booksService.getconsole(id).subscribe((data) => console.log(data));
   }
 }

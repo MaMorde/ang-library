@@ -5,14 +5,19 @@
       <mat-label>Название</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
-    <mat-form-field class="modal__genre" appearance="fill">
+
+    <mat-form-field appearance="fill">
       <mat-label>Жанр</mat-label>
-      <input matInput formControlName="genre" />
+      <mat-select formControlName="genre" name="genre">
+        <mat-option *ngFor="let genre of genres" [value]="genre.value">
+          {{ genre.viewValue }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill" calss="modal__authors">
       <mat-label>Автор</mat-label>
       <mat-select formControlName="author" name="author">
-        <mat-option *ngFor="let author of authors | async" [value]="author">
+        <mat-option *ngFor="let author of authors | async" [value]="author.id">
           {{ author.name + author.surname }}
         </mat-option>
       </mat-select>

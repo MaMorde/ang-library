@@ -17,6 +17,11 @@ export class ModalComponent implements OnInit {
     private booksService: BooksService,
     private authorsService: AuthorsService
   ) {}
+  genres = [
+    { value: 'detective', viewValue: 'Детектив' },
+    { value: 'horror', viewValue: 'Ужасы' },
+    { value: 'thriller', viewValue: 'Триллер' },
+  ];
   public authors: Observable<IAuthor[]>;
   public addBookForm: FormGroup;
   ngOnInit(): void {
@@ -29,14 +34,13 @@ export class ModalComponent implements OnInit {
   }
 
   addBook() {
-    const { name, genre, author } = this.addBookForm.value;
-    const params = { name, genre, author };
-    console.log(params);
-    console.log(this.addBookForm.value);
+    const { name, genre, author_id } = this.addBookForm.value;
+    const params = { name, genre, author_id };
+
     this.booksService.create(params).subscribe((data) => console.log(data));
   }
   public onSubmit() {
     this.addBook();
-    console.log(this.addBookForm.get('author').value);
+    console.log(this.addBookForm.get('author_id'));
   }
 }
