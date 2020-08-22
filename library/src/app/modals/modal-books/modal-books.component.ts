@@ -5,6 +5,7 @@ import { BooksService } from 'src/app/services/books.service';
 import { IAuthor } from 'src/app/interfaces/author';
 import { AuthorsService } from 'src/app/services/authors.service';
 import { Observable } from 'rxjs';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal',
@@ -15,12 +16,14 @@ export class ModalBooksComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private booksService: BooksService,
-    private authorsService: AuthorsService
+    private authorsService: AuthorsService,
+    public dialogRef: MatDialogRef<ModalBooksComponent>
   ) {}
 
   public authors: Observable<IAuthor[]>;
   public addBookForm: FormGroup;
   public genres;
+
   ngOnInit(): void {
     this.genres = genres;
     this.authors = this.authorsService.get();
@@ -31,14 +34,12 @@ export class ModalBooksComponent implements OnInit {
     });
   }
 
-  addBook() {
-    const { name, genre, author: author_id } = this.addBookForm.value;
-    const params = { name, genre, author_id };
-
-    this.booksService.create(params).subscribe((data) => console.log(data));
+  closeDialog(params) {
+    this.dialogRef.close(params);
   }
   public onSubmit() {
-    this.addBook();
-    console.log(this.addBookForm.get('author'));
+    const { name, genre, author: author_id } = this.addBookForm.value;
+    const params = { name, genre, author_id };
+    this.closeDialog(params);
   }
 }

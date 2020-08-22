@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../../services/books.service';
 import { IBook } from 'src/app/interfaces/book';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthorsService } from 'src/app/services/authors.service';
-import { IAuthor } from 'src/app/interfaces/author';
+
 import { Observable } from 'rxjs';
 import { ModalBooksComponent } from 'src/app/modals/modal-books/modal-books.component';
 @Component({
@@ -12,13 +11,8 @@ import { ModalBooksComponent } from 'src/app/modals/modal-books/modal-books.comp
   styleUrls: ['./library.component.scss'],
 })
 export class LibraryComponent implements OnInit {
-  constructor(
-    private booksService: BooksService,
-    private authorsService: AuthorsService,
-    public dialog: MatDialog
-  ) {}
+  constructor(private booksService: BooksService, public dialog: MatDialog) {}
   public books: Observable<IBook[]>;
-
   displayedColumns: string[] = [
     'id',
     'title',
@@ -32,7 +26,13 @@ export class LibraryComponent implements OnInit {
     this.books = this.booksService.get();
   }
   openCreateForm() {
-    this.dialog.open(ModalBooksComponent);
+    const dialogRef = this.dialog.open(ModalBooksComponent);
+
+    dialogRef
+      .afterClosed()
+      .subscribe((data) =>
+        this.booksService.create(data).subscribe((book) => (this.books = book))
+      );
   }
 
   public delBook(id: number) {
