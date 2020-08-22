@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../../services/books.service';
 import { IBook } from 'src/app/interfaces/book';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../modal/modal.component';
 import { AuthorsService } from 'src/app/services/authors.service';
 import { IAuthor } from 'src/app/interfaces/author';
 import { Observable } from 'rxjs';
+import { ModalBooksComponent } from 'src/app/modals/modal-books/modal-books.component';
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
@@ -32,11 +32,11 @@ export class LibraryComponent implements OnInit {
     this.books = this.booksService.get();
   }
   openCreateForm() {
-    this.dialog.open(ModalComponent);
+    this.dialog.open(ModalBooksComponent);
   }
 
   public delBook(id: number) {
-    this.booksService.delete(id).subscribe();
+    this.books = this.booksService.delete(id);
   }
   console(id: number) {
     this.booksService.getconsole(id).subscribe((data) => console.log(data));

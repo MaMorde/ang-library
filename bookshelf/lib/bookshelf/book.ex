@@ -14,7 +14,7 @@ defmodule Bookshelf.Book do
 
   def changeset(book, attrs) do
     book
-    |> cast(attrs, [:name, :genre])
+    |> cast(attrs, [:name, :genre, :author_id])
     |> validate_required([:name, :genre])
     |> cast_assoc(:author)
   end

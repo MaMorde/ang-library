@@ -24,17 +24,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LibraryComponent } from './components/library/library.component';
-import { ModalComponent } from './components/modal/modal.component';
+import { ModalBooksComponent } from './modals/modal-books/modal-books.component';
 
 import { BooksService } from './services/books.service';
 import { AuthorsService } from './services/authors.service';
+import { ModalAuthorsComponent } from './modals/modal-authors/modal-authors.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LibraryComponent,
-    ModalComponent,
+    ModalBooksComponent,
+    ModalAuthorsComponent,
   ],
   imports: [
     BrowserModule,
