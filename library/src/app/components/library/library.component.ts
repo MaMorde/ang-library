@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Observable } from 'rxjs';
 import { ModalBooksComponent } from 'src/app/modals/modal-books/modal-books.component';
+import { IAuthor } from 'src/app/interfaces/author';
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
@@ -13,6 +14,11 @@ import { ModalBooksComponent } from 'src/app/modals/modal-books/modal-books.comp
 export class LibraryComponent implements OnInit {
   constructor(private booksService: BooksService, public dialog: MatDialog) {}
   public books: Observable<IBook[]>;
+  public authors: IAuthor[] = [
+    { id: 1, name: 'name', surname: 'surname' },
+    { id: 1, name: 'danm', surname: 'damnov' },
+    { id: 1, name: 'George', surname: 'Orwell' },
+  ];
   displayedColumns: string[] = [
     'id',
     'title',
@@ -30,9 +36,7 @@ export class LibraryComponent implements OnInit {
 
     dialogRef
       .afterClosed()
-      .subscribe((data) =>
-        this.booksService.create(data).subscribe((book) => (this.books = book))
-      );
+      .subscribe((data) => (this.books = this.booksService.create(data)));
   }
 
   public delBook(id: number) {
