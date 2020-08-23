@@ -5,10 +5,13 @@
   &__table {
     width: 100%;
   }
-  &__btn-add {
+  &__btns {
     margin-bottom: 20px;
     display: flex;
     justify-content: flex-end;
+  }
+  &__btn-link {
+    margin-left: 10px;
   }
 }
 td.mat-cell {

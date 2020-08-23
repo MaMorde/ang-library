@@ -18,7 +18,7 @@
       <mat-label>Автор</mat-label>
       <mat-select formControlName="author" name="author">
         <mat-option *ngFor="let author of authors | async" [value]="author.id">
-          {{ author.name + author.surname }}
+          {{ author.name + " " + author.surname }}
         </mat-option>
       </mat-select>
     </mat-form-field>

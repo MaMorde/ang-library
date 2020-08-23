@@ -12,4 +12,14 @@ export class AuthorsService {
   get(): Observable<IAuthor[]> {
     return this.http.get<IAuthor[]>(`${this.link}/authors`);
   }
+
+  getconsole(id: number): Observable<IAuthor[]> {
+    return this.http.get<IAuthor[]>(`${this.link}/authors/${id}`);
+  }
+  create(book): Observable<IAuthor[]> {
+    return this.http.post<IAuthor[]>(`${this.link}/authors`, book);
+  }
+  delete(id: number): Observable<IAuthor[]> {
+    return this.http.delete<IAuthor[]>(`${this.link}/authors/${id}`);
+  }
 }

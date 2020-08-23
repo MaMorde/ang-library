@@ -1,0 +1,21 @@
+.authors {
+  width: 100%;
+  margin-top: 50px;
+
+  &__table {
+    width: 100%;
+  }
+  &__btns {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__btn-link {
+    margin-left: 10px;
+  }
+}
+td.mat-cell {
+  width: 75px;
+}
+@media (max-width: 769px) {
+}

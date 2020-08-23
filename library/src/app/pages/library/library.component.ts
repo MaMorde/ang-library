@@ -2,23 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../../services/books.service';
 import { IBook } from 'src/app/interfaces/book';
 import { MatDialog } from '@angular/material/dialog';
-
 import { Observable } from 'rxjs';
 import { ModalBooksComponent } from 'src/app/modals/modal-books/modal-books.component';
-import { IAuthor } from 'src/app/interfaces/author';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss'],
 })
 export class LibraryComponent implements OnInit {
-  constructor(private booksService: BooksService, public dialog: MatDialog) {}
+  constructor(
+    private booksService: BooksService,
+    public dialog: MatDialog,
+    private route: Router
+  ) {}
   public books: Observable<IBook[]>;
-  public authors: IAuthor[] = [
-    { id: 1, name: 'name', surname: 'surname' },
-    { id: 1, name: 'danm', surname: 'damnov' },
-    { id: 1, name: 'George', surname: 'Orwell' },
-  ];
+
   displayedColumns: string[] = [
     'id',
     'title',

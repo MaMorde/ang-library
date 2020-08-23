@@ -1,6 +1,9 @@
 <div class="library">
-  <div class="library__btn-add">
-    <button (click)="openCreateForm()" mat-raised-button>Add book</button>
+  <div class="library__btns">
+    <button (click)="openCreateForm()" mat-raised-button>Добавить книгу</button>
+    <button class="library__btn-link" routerLink="/authors" mat-raised-button>
+      Авторы
+    </button>
   </div>
   <table
     mat-table

@@ -1,5 +1,5 @@
 export const genres = [
-  { value: 'detective', viewValue: 'Детектив' },
-  { value: 'horror', viewValue: 'Ужасы' },
-  { value: 'thriller', viewValue: 'Триллер' },
+  { value: 'Детектив', viewValue: 'Детектив' },
+  { value: 'Ужасы', viewValue: 'Ужасы' },
+  { value: 'Триллер', viewValue: 'Триллер' },
 ];

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { genres } from 'src/assets/genres';
-import { BooksService } from 'src/app/services/books.service';
 import { IAuthor } from 'src/app/interfaces/author';
 import { AuthorsService } from 'src/app/services/authors.service';
 import { Observable } from 'rxjs';
@@ -15,7 +14,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ModalBooksComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
-    private booksService: BooksService,
     private authorsService: AuthorsService,
     public dialogRef: MatDialogRef<ModalBooksComponent>
   ) {}
@@ -38,6 +36,7 @@ export class ModalBooksComponent implements OnInit {
     this.dialogRef.close(params);
   }
   public onSubmit() {
+    // tslint:disable-next-line:variable-name
     const { name, genre, author: author_id } = this.addBookForm.value;
     const params = { name, genre, author_id };
     this.closeDialog(params);
