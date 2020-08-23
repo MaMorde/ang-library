@@ -7,7 +7,7 @@ defmodule Bookshelf.Author do
   schema "authors" do
     field(:name, :string)
     field(:surname, :string)
-    has_many(:books, Book, on_replace: :delete)
+    has_many(:books, Book, on_replace: :delete, on_delete: :nilify_all)
   end
 
   @preload_list [:books]
