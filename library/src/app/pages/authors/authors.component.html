@@ -8,6 +8,7 @@
     </button>
   </div>
   <table
+    *ngIf="(authors | async)?.length > 0"
     mat-table
     [dataSource]="authors | async"
     class="mat-elevation-z8 authors__table"
@@ -44,4 +45,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+  <div class="authors__empty" *ngIf="(authors | async)?.length === 0">
+    <app-empty-state></app-empty-state>
+  </div>
 </div>

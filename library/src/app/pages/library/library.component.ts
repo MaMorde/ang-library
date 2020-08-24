@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../../services/books.service';
 import { IBook } from 'src/app/interfaces/book';
+import { switchMap } from 'rxjs/operators';
+
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ModalBooksComponent } from 'src/app/modals/modal-books/modal-books.component';
-import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss'],
 })
 export class LibraryComponent implements OnInit {
-  constructor(
-    private booksService: BooksService,
-    public dialog: MatDialog,
-    private route: Router
-  ) {}
+  constructor(private booksService: BooksService, public dialog: MatDialog) {}
   public books: Observable<IBook[]>;
 
   displayedColumns: string[] = [
@@ -26,7 +24,6 @@ export class LibraryComponent implements OnInit {
     'edit',
     'delete',
   ];
-
   ngOnInit(): void {
     this.books = this.booksService.get();
   }
@@ -35,13 +32,14 @@ export class LibraryComponent implements OnInit {
 
     dialogRef
       .afterClosed()
-      .subscribe((data) => (this.books = this.booksService.create(data)));
+      .pipe(switchMap((data) => this.booksService.create(data)))
+      .subscribe(() => (this.books = this.booksService.get()));
   }
 
   public delBook(id: number) {
     this.books = this.booksService.delete(id);
   }
-  console(id: number) {
-    this.booksService.getconsole(id).subscribe((data) => console.log(data));
+  onEdit(id: number) {
+    const dialogRef = this.dialog.open(ModalBooksComponent);
   }
 }

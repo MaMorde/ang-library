@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IAuthor } from 'src/app/interfaces/author';
 import { AuthorsService } from 'src/app/services/authors.service';
 import { ModalAuthorsComponent } from 'src/app/modals/modal-authors/modal-authors.component';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-authors',
@@ -27,7 +28,8 @@ export class AuthorsComponent implements OnInit {
 
     dialogRef
       .afterClosed()
-      .subscribe((data) => (this.authors = this.authorService.create(data)));
+      .pipe(switchMap((data) => this.authorService.create(data)))
+      .subscribe(() => (this.authors = this.authorService.get()));
   }
 
   public delAuthor(id: number) {

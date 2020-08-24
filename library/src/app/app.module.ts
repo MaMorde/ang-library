@@ -32,6 +32,7 @@ import { ModalAuthorsComponent } from './modals/modal-authors/modal-authors.comp
 import { BooksService } from './services/books.service';
 import { AuthorsService } from './services/authors.service';
 import { ModalEditBookComponent } from './modals/modal-edit-book/modal-edit-book.component';
+import { EmptyStateComponent } from './components/empty-state/empty-state.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ModalEditBookComponent } from './modals/modal-edit-book/modal-edit-book
     ModalAuthorsComponent,
     AuthorsComponent,
     ModalEditBookComponent,
+    EmptyStateComponent,
   ],
   imports: [
     BrowserModule,
