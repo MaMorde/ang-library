@@ -17,7 +17,7 @@
     <mat-form-field appearance="fill" calss="modal__authors">
       <mat-label>Автор</mat-label>
       <mat-select formControlName="author" name="author">
-        <mat-option *ngFor="let author of authors | async" [value]="author.id">
+        <mat-option *ngFor="let author of authors | async" [value]="author">
           {{ author.name + " " + author.surname }}
         </mat-option>
       </mat-select>
