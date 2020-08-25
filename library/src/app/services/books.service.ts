@@ -13,7 +13,7 @@ export class BooksService {
   get(): Observable<IBook[]> {
     return this.http.get<IBook[]>(`${this.link}books`);
   }
-  getconsole(id: number): Observable<IBook[]> {
+  getBook(id: number): Observable<IBook[]> {
     return this.http.get<IBook[]>(`${this.link}books/${id}`);
   }
   create(book: IBook): Observable<IBook[]> {
@@ -22,7 +22,7 @@ export class BooksService {
   delete(id: number): Observable<IBook[]> {
     return this.http.delete<IBook[]>(`${this.link}books/${id}`);
   }
-  put(book: IBook) {
-    return this.http.put(`${this.link}/books/${book.id}`, book);
+  put(book: IBook, data: IBook) {
+    return this.http.put(`${this.link}books/${book.id}`, data);
   }
 }

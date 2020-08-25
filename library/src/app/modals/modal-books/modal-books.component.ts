@@ -35,7 +35,6 @@ export class ModalBooksComponent implements OnInit {
   closeDialog(params) {
     this.dialogRef.close(params);
   }
-  editBook() {}
   public onSubmit() {
     // tslint:disable-next-line:variable-name
     const { name, genre, author: author_id } = this.addBookForm.value;

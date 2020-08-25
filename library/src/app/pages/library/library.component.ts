@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../../services/books.service';
 import { IBook } from 'src/app/interfaces/book';
-import { switchMap } from 'rxjs/operators';
-
+import { switchMap, filter } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ModalBooksComponent } from 'src/app/modals/modal-books/modal-books.component';
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+import { ModalEditBookComponent } from 'src/app/modals/modal-edit-book/modal-edit-book.component';
 
+@UntilDestroy()
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
@@ -32,7 +34,11 @@ export class LibraryComponent implements OnInit {
 
     dialogRef
       .afterClosed()
-      .pipe(switchMap((data) => this.booksService.create(data)))
+      .pipe(
+        untilDestroyed(this),
+        filter((data) => !!data),
+        switchMap((data) => this.booksService.create(data))
+      )
       .subscribe(() => (this.books = this.booksService.get()));
   }
 
@@ -40,6 +46,22 @@ export class LibraryComponent implements OnInit {
     this.books = this.booksService.delete(id);
   }
   onEdit(id: number) {
-    const dialogRef = this.dialog.open(ModalBooksComponent);
+    const dialogRef = this.dialog.open(ModalEditBookComponent);
+    let book: IBook;
+    dialogRef
+      .afterOpened()
+      .pipe(
+        untilDestroyed(this),
+        switchMap(() => this.booksService.getBook(id))
+      )
+      .subscribe((data) => (book = data));
+    dialogRef
+      .afterClosed()
+      .pipe(
+        untilDestroyed(this),
+        filter((data) => !!data),
+        switchMap((data) => this.booksService.put(book, data))
+      )
+      .subscribe();
   }
 }
