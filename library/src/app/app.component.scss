@@ -1,7 +1,7 @@
 .container {
   padding: 0 370px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 
   @media (max-width: 1329px) {
     padding: 0 250px;
@@ -14,8 +14,5 @@
   }
 }
 app-navbar {
-  width: 100%;
-}
-app-library {
   width: 100%;
 }

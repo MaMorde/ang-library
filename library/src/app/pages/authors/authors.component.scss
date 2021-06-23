@@ -1,18 +1,21 @@
-.library {
+.authors {
   width: 100%;
   margin-top: 50px;
 
   &__table {
-    width: 100%;
+    min-width: 500px;
   }
-  &__btn-add {
+  &__btns {
     margin-bottom: 20px;
     display: flex;
     justify-content: flex-end;
   }
+  &__btn-link {
+    margin-left: 10px;
+  }
 }
 td.mat-cell {
-  width: 75px;
+  width: 100px;
 }
 @media (max-width: 769px) {
 }

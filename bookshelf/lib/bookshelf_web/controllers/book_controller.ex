@@ -2,7 +2,6 @@ defmodule BookshelfWeb.BookController do
   use BookshelfWeb, :controller
 
   def index(conn, _) do
-    IO.inspect("HERE")
     books = Bookshelf.Book.list_books()
     render(conn, "index.json", books: books)
   end

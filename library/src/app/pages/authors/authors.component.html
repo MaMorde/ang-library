@@ -1,0 +1,51 @@
+<div class="authors">
+  <div class="authors__btns">
+    <button (click)="openCreateForm()" mat-raised-button>
+      Добавить автора
+    </button>
+    <button class="authors__btn-link" routerLink="/library" mat-raised-button>
+      Книги
+    </button>
+  </div>
+  <table
+    *ngIf="(authors | async)?.length > 0"
+    mat-table
+    [dataSource]="authors | async"
+    class="mat-elevation-z8 authors__table"
+  >
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element; index as i">{{ i + 1 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Имя</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef>Фамилия</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.surname }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+
+      <td class="authors__btn-edit" mat-cell *matCellDef="let element">
+        <button (click)="delAuthor(element.id)" mat-button>
+          <span class="material-icons">
+            delete
+          </span>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <div class="authors__empty" *ngIf="(authors | async)?.length === 0">
+    <app-empty-state></app-empty-state>
+  </div>
+</div>

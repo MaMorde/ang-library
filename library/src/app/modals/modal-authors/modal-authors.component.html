@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Добавление автора</h2>
+<mat-dialog-content class="mat-typography modal">
+  <form [formGroup]="addAuthorForm" class="modal__form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="modal__title" appearance="fill">
+      <mat-label>Имя</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" calss="modal__authors">
+      <mat-label>Фамилия</mat-label>
+      <input matInput formControlName="surname" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    [disabled]="addAuthorForm.invalid"
+    (click)="onSubmit()"
+    cdkFocusInitial
+  >
+    Добавить
+  </button>
+
+  <button mat-button mat-dialog-close>Отмена</button>
+</mat-dialog-actions>

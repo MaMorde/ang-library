@@ -1,10 +1,10 @@
 defmodule BookshelfWeb.AuthorView do
-  alias Bookshelf.AuthorView
+  alias BookshelfWeb.AuthorView
   alias BookshelfWeb.BookView
   use BookshelfWeb, :view
 
-  def render("index.json", %{author: author}) do
-    render_many(author, AuthorView, "author.json")
+  def render("index.json", %{authors: authors}) do
+    render_many(authors, AuthorView, "author.json")
   end
 
   def render("show.json", %{author: author}) do

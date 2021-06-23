@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Изменить книгу</h2>
+<mat-dialog-content class="mat-typography modal">
+  <form [formGroup]="addBookForm" class="modal__form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="modal__title" appearance="fill">
+      <mat-label>Название</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Жанр</mat-label>
+      <mat-select formControlName="genre" name="genre">
+        <mat-option *ngFor="let genre of genres" [value]="genre.value">
+          {{ genre.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" calss="modal__authors">
+      <mat-label>Автор</mat-label>
+      <mat-select formControlName="author" name="author">
+        <mat-option *ngFor="let author of authors | async" [value]="author">
+          {{ author.name + " " + author.surname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    [disabled]="addBookForm.invalid"
+    (click)="onSubmit()"
+    cdkFocusInitial
+  >
+    Добавить
+  </button>
+
+  <button mat-button mat-dialog-close>Отмена</button>
+</mat-dialog-actions>

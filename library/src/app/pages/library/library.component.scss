@@ -1,0 +1,33 @@
+.library {
+  width: 100%;
+  margin-top: 50px;
+
+  &__table {
+    min-width: 800px;
+  }
+  &__btns {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__btn-link {
+    margin-left: 10px;
+  }
+}
+td.mat-cell {
+  width: 300px;
+}
+@media (max-width: 1200px) {
+  .library {
+    &__table {
+      min-width: 700px;
+    }
+  }
+}
+@media (max-width: 769px) {
+  .library {
+    &__table {
+      min-width: 500px;
+    }
+  }
+}

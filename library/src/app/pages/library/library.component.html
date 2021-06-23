@@ -1,29 +1,39 @@
 <div class="library">
-  <div class="library__btn-add">
-    <button (click)="openCreateForm()" mat-raised-button>Add book</button>
+  <div class="library__btns">
+    <button (click)="openCreateForm()" mat-raised-button>Добавить книгу</button>
+    <button class="library__btn-link" routerLink="/authors" mat-raised-button>
+      Авторы
+    </button>
   </div>
-  <table mat-table [dataSource]="books" class="mat-elevation-z8 library__table">
+  <table
+    *ngIf="(books | async)?.length > 0"
+    mat-table
+    [dataSource]="books | async"
+    class="mat-elevation-z8 library__table"
+  >
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      <td mat-cell *matCellDef="let element; index as i">{{ i + 1 }}</td>
     </ng-container>
 
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <th mat-header-cell *matHeaderCellDef>Название</th>
       <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
 
     <ng-container matColumnDef="author">
-      <th mat-header-cell *matHeaderCellDef>Author</th>
+      <th mat-header-cell *matHeaderCellDef>Автор</th>
       <td mat-cell *matCellDef="let element">
-        <div *ngFor="let author of element.authors">
-          {{ author.surname + " " + author.name }}
-        </div>
+        {{
+          element.author
+            ? element.author.name + " " + element.author.surname
+            : "Неизвестный"
+        }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="genre">
-      <th mat-header-cell *matHeaderCellDef>Genre</th>
+      <th mat-header-cell *matHeaderCellDef>Жанр</th>
       <td mat-cell *matCellDef="let element">{{ element.genre }}</td>
     </ng-container>
 
@@ -31,7 +41,7 @@
       <th mat-header-cell *matHeaderCellDef></th>
 
       <td class="library__btn-edit" mat-cell *matCellDef="let element">
-        <button mat-button>
+        <button mat-button (click)="onEdit(element.id)">
           <span class="material-icons">
             create
           </span>
@@ -53,4 +63,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+  <div class="library__empty" *ngIf="(books | async)?.length === 0">
+    <app-empty-state></app-empty-state>
+  </div>
 </div>
